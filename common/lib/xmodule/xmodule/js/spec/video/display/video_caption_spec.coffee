@@ -1,9 +1,8 @@
-# TODO: figure out why failing
 describe 'VideoCaption', ->
 
   beforeEach ->
     spyOn(VideoCaption.prototype, 'fetchCaption').andCallThrough()
-    spyOn($, 'getWithPrefix').andCallThrough()
+    spyOn($, 'ajaxWithPrefix').andCallThrough()
     window.onTouchBasedDevice = jasmine.createSpy('onTouchBasedDevice').andReturn false
 
   afterEach ->
@@ -31,7 +30,10 @@ describe 'VideoCaption', ->
       it 'fetch the caption', ->
         expect(@caption.loaded).toBeTruthy()
         expect(@caption.fetchCaption).toHaveBeenCalled()
-        expect($.getWithPrefix).toHaveBeenCalledWith @caption.captionURL(), jasmine.any(Function)
+        expect($.ajaxWithPrefix).toHaveBeenCalledWith
+          url: @caption.captionURL()
+          notifyOnError: false
+          success: jasmine.any(Function)
 
       it 'bind window resize event', ->
         expect($(window)).toHandleWith 'resize', @caption.resize
