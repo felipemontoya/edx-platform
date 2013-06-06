@@ -82,6 +82,8 @@ clone_repos() {
 
     cd "$BASE"
 
+    output "$BASE/edx-platform"
+
     if [[ -d "$BASE/edx-platform/.git" ]]; then
         output "Pulling edx platform"
         cd "$BASE/edx-platform"
@@ -102,7 +104,8 @@ clone_repos() {
 PROG=${0##*/}
 
 # Adjust this to wherever you'd like to place the codebase
-BASE="${PROJECT_HOME:-$HOME}/edx_all"
+# BASE="${PROJECT_HOME:-$HOME}/edx_all"
+BASE="/vagrant"
 
 # Use a sensible default (~/.virtualenvs) for your Python virtualenvs
 # unless you've already got one set up with virtualenvwrapper.
